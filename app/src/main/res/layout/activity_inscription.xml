@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InscriptionActivity"
+    android:id="@+id/inscription">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <EditText
+        android:id="@+id/givenName"
+        android:hint="Given name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:ignore="Autofill,HardcodedText" />
+    <RadioGroup
+        android:id="@+id/sex"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/givenName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/btnMan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Men"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/btnWoman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Women"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:paddingLeft="1dp"
+        android:id="@+id/calendrierBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sex">
+
+        <EditText
+            android:id="@+id/birthday"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Birthday"
+            android:inputType="date"
+            tools:ignore="Autofill,HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/calendrier"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/birthday"
+            app:layout_constraintTop_toBottomOf="@id/givenName" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/weight"
+        android:hint="Please fill your weight(kg)"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendrierBox"
+        tools:ignore="Autofill,HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/swichGroup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingStart="4dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weight">
+
+        <Switch
+            android:id="@+id/smoking"
+            android:layout_gravity="fill_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:switchPadding="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Do you smoke?" />
+
+        <Switch
+            android:id="@+id/sport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:switchPadding="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Do you do the sports" />
+
+        <Switch
+            android:id="@+id/heart_disease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:switchPadding="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Do you have any heart disease"
+            app:layout_constraintTop_toBottomOf="@id/sport" />
+
+        <Switch
+            android:id="@+id/asthma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:switchPadding="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Do you have any asthma problem"
+            app:layout_constraintTop_toBottomOf="@+id/heart_disease" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#FF3030"
+        android:text="Sign up"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swichGroup"
+        tools:ignore="HardcodedText" />
+
+
+
+</android.support.constraint.ConstraintLayout>
