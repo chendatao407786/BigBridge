@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import bigbridge.mbds.unice.fr.bigbridge.R;
+
+import static bigbridge.mbds.unice.fr.bigbridge.R.string.name;
 
 public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.MyViewHolder>{
     private JSONObject mDataSet;
@@ -34,6 +37,17 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
             String name = mDataSet.names().get(i).toString();
             myViewHolder.fieldName.setText(name);
             myViewHolder.value.setText(mDataSet.getString(name));
+
+            switch (name){
+                case "Name":
+                    myViewHolder.image.setImageResource(R.drawable.ic_modify);
+                    break;
+                case "Birthday":
+                    myViewHolder.image.setImageResource(R.drawable.ic_calendar);
+                    break;
+                default:
+                    myViewHolder.image.setImageResource(R.drawable.ic_greatthan);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -47,6 +61,10 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView fieldName;
         TextView value;
+        ImageView image;
+        static final String name = "Name";
+        final private String birthday = "Birthday";
+
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
             fieldName = itemView.findViewById(R.id.key);
@@ -57,8 +75,7 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
                     Toast.makeText(itemView.getContext(),fieldName.getText(),Toast.LENGTH_LONG).show();
                 }
             });
+            image= itemView.findViewById(R.id.iconModify);
         }
-
-
     }
 }
