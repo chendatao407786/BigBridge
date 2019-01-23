@@ -12,14 +12,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         mHandle.postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent intent = new Intent(MainActivity.this, InscriptionActivity.class);
                 startActivity(intent);
             }
-        }, 3000);
+        }, 1000);
     }
 }
 
