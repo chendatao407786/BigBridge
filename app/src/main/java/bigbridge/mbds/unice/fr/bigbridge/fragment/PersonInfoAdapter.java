@@ -1,7 +1,12 @@
 package bigbridge.mbds.unice.fr.bigbridge.fragment;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +24,19 @@ import static bigbridge.mbds.unice.fr.bigbridge.R.string.name;
 
 public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.MyViewHolder>{
     private JSONObject mDataSet;
-    public PersonInfoAdapter(JSONObject mDataSet){
+    private Context context;
+    private PersonInfoFragment.IPersonListener iPersonListener;
+    public PersonInfoAdapter(Context context, JSONObject mDataSet, PersonInfoFragment.IPersonListener iPersonListener){
+        this.context=context;
         this.mDataSet = mDataSet;
+        this.iPersonListener = iPersonListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.info_list_adapter,viewGroup,false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
+        MyViewHolder myViewHolder = new MyViewHolder(view,iPersonListener);
         return myViewHolder;
     }
 
@@ -37,7 +46,6 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
             String name = mDataSet.names().get(i).toString();
             myViewHolder.fieldName.setText(name);
             myViewHolder.value.setText(mDataSet.getString(name));
-
             switch (name){
                 case "Name":
                     myViewHolder.image.setImageResource(R.drawable.ic_modify);
@@ -62,17 +70,24 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
         TextView fieldName;
         TextView value;
         ImageView image;
-        static final String name = "Name";
-        final private String birthday = "Birthday";
-
-        public MyViewHolder(@NonNull final View itemView) {
+        PersonInfoFragment.IPersonListener personListener;
+        public MyViewHolder(@NonNull final View itemView, PersonInfoFragment.IPersonListener iPersonListener) {
             super(itemView);
             fieldName = itemView.findViewById(R.id.key);
             value = itemView.findViewById(R.id.value);
+            personListener = iPersonListener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(itemView.getContext(),fieldName.getText(),Toast.LENGTH_LONG).show();
+                    String key = fieldName.getText().toString();
+                    String valeur = value.getText().toString();
+                    FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    ModifyTextFragment modifyTextFragment = new ModifyTextFragment();
+                    transaction.replace(R.id.inscription,modifyTextFragment,"modifyTextFragment");
+                    personListener.sendMsgs(key,valeur,modifyTextFragment);
+                    transaction.commit();
                 }
             });
             image= itemView.findViewById(R.id.iconModify);
