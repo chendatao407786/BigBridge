@@ -1,11 +1,22 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
     </style>
 
+    <style name="MyActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/darkgreen</item>
+        <item name="android:textColorPrimary">@color/darkgreen</item>
+    </style>
+
+    <!--<style name="MyDrawerArrowToggle" parent="@style/Widget.AppCompat.DrawerArrowToggle">-->
+        <!--<item name="color">@color/darkgreen</item>-->
+    <!--</style>-->
+
+    <!--<style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">-->
+        <!--<item name="android:textColor">@color/actionBarTitle</item>-->
+    <!--</style>-->
 </resources>
