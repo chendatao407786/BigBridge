@@ -35,14 +35,14 @@ public class PersonInfoFragment extends Fragment {
         // Required empty public constructor
     }
     public interface IPersonListener{
-        void sendMsgs(String value,String v,Fragment fragment);
+        void sendMsgs(String value,String v,ModifierFragment modifierFragment);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_person_info, container, false);
         initDataSet();
         initializeAdapter(mDataset);
-        Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
         return view;
     }
     private void initDataSet(){
