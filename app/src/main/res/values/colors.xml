@@ -5,4 +5,5 @@
     <color name="colorAccent">#88D498</color>
     <color name="actionBarTitle">#1A936F</color>
     <color name="darkgreen">#114B5F</color>
+    <color name="buttonRed">#FF3030</color>
 </resources>
