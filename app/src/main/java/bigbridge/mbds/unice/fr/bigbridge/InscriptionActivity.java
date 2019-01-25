@@ -28,11 +28,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import bigbridge.mbds.unice.fr.bigbridge.fragment.ModifierFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ModifyTextFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.PersonInfoFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.SelectWeightFragment;
 
-public class InscriptionActivity extends AppCompatActivity implements PersonInfoFragment.IPersonListener,ModifyTextFragment.IModifyTextFragmentListener{
+public class InscriptionActivity extends AppCompatActivity implements PersonInfoFragment.IPersonListener,ModifierFragment.IModifierFragmentListener{
 //    int mYear;
 //    int mMonth;
 //    int mDay;
@@ -85,17 +86,15 @@ public class InscriptionActivity extends AppCompatActivity implements PersonInfo
 //    }
 
     @Override
-    public void sendMsgs(String name,String v,Fragment fragment) {
-        if(fragment instanceof ModifyTextFragment){
-            ((ModifyTextFragment) fragment).update(name,v);
-        }
+    public void sendMsgs(String name,String v,ModifierFragment modifierFragment) {
+//        if(fragment instanceof ModifierFragment){
+//            ((ModifierFragment) fragment).update(name,v);
+//        }
+        modifierFragment.update(name,v);
     }
 
     @Override
     public void sentData(String name, String value) {
-//        if(personInfoFragment instanceof PersonInfoFragment){
-//            personInfoFragment.updateDataSet(name,value);
-//        }
         try {
             mDataset.put(name,value);
             personInfoFragment = new PersonInfoFragment();
