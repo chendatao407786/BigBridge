@@ -59,13 +59,6 @@ public class InscriptionActivity extends AppCompatActivity implements PersonInfo
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.inscription, personInfoFragment);
         transaction.commit();
-//        signUpButton = findViewById(R.id.signup_button);
-//        signUpButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                createUser();
-//            }
-//        });
     }
 
     @Override
