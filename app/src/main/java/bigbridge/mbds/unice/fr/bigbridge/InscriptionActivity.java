@@ -5,25 +5,43 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import bigbridge.mbds.unice.fr.bigbridge.api.IUser;
+import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
+import bigbridge.mbds.unice.fr.bigbridge.api.model.User;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ModifierFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.PersonInfoFragment;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InscriptionActivity extends AppCompatActivity implements PersonInfoFragment.IPersonListener, ModifierFragment.IModifierFragmentListener {
-
-    JSONObject mDataset;
-
-    private void initDataSet() {
+//    private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
+    private JSONObject mDataset;
+    private Button signUpButton;
+    private void initDataSet(){
         ArrayMap am = new ArrayMap();
-        am.put("Name", "CHEN Datao");
-        am.put("Birthday", "26/11/1990");
-        am.put("Sex", "Men");
-        am.put("Weight", "80");
-        am.put("Profession", "IT");
+        am.put("NAME", "");
+        am.put("BIRTHDAY", "");
+        am.put("SEX", "");
+        am.put("WEIGHT", "");
+        am.put("PROFESSION", "");
+        am.put("SMOKING","");
+        am.put("SPORT","");
+        am.put("HEART DISEASE","");
+        am.put("ASTHMA","");
         mDataset = new JSONObject(am);
+        Toast.makeText(this,mDataset.toString(),Toast.LENGTH_LONG).show();
     }
 
     private PersonInfoFragment personInfoFragment;
@@ -41,6 +59,13 @@ public class InscriptionActivity extends AppCompatActivity implements PersonInfo
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.inscription, personInfoFragment);
         transaction.commit();
+//        signUpButton = findViewById(R.id.signup_button);
+//        signUpButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                createUser();
+//            }
+//        });
     }
 
     @Override
@@ -64,4 +89,23 @@ public class InscriptionActivity extends AppCompatActivity implements PersonInfo
             e.printStackTrace();
         }
     }
+
+//    private void createUser(){
+//        User user = new User(mDataset);
+//        Call<ResponseBody> call = userApi.createUser(user);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                if(response.isSuccessful()){
+//                    Toast.makeText(InscriptionActivity.this, "Created successfully", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Toast.makeText(InscriptionActivity.this, "CreateUser error :/\n"+response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(InscriptionActivity.this, "CreateUser error :/\n" + t, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }
