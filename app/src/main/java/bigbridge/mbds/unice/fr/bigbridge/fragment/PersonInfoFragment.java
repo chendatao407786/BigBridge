@@ -112,12 +112,12 @@ public class PersonInfoFragment extends Fragment {
                 if(response.isSuccessful()){
                     Toast.makeText(getContext(), "Created successfully", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getContext(), "CreateUser error :/\n"+response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "CreateUser error 0:/\n"+response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "CreateUser error :/\n" + t, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "CreateUser error 1:/\n" + t, Toast.LENGTH_SHORT).show();
             }
         });
     }
