@@ -14,12 +14,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bigbridge.mbds.unice.fr.bigbridge.InscriptionActivity;
 import bigbridge.mbds.unice.fr.bigbridge.R;
+import bigbridge.mbds.unice.fr.bigbridge.api.IUser;
+import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
+import bigbridge.mbds.unice.fr.bigbridge.api.model.User;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +40,8 @@ public class PersonInfoFragment extends Fragment {
     private RecyclerView.Adapter mPersonInfoAdapter;
     private JSONObject mDataset;
     private LinearLayoutManager mLayoutManager;
+    private Button signUpButton;
+    private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
     public PersonInfoFragment() {
         // Required empty public constructor
     }
@@ -42,6 +53,7 @@ public class PersonInfoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_person_info, container, false);
         initDataSet();
         initializeAdapter(mDataset);
+        signUp(view);
 //        Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
         return view;
     }
@@ -64,6 +76,17 @@ public class PersonInfoFragment extends Fragment {
         mInformationList.addItemDecoration(dividerItemDecoration);
     }
 
+    private void signUp(View view){
+        signUpButton = view.findViewById(R.id.signup_button);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createUser();
+            }
+        });
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -78,5 +101,24 @@ public class PersonInfoFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         iPersonListener = null;
+    }
+
+    private void createUser(){
+        User user = new User(mDataset);
+        Call<ResponseBody> call = userApi.createUser(user);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getContext(), "Created successfully", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "CreateUser error :/\n"+response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(), "CreateUser error :/\n" + t, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
