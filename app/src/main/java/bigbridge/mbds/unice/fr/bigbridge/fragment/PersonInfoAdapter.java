@@ -49,10 +49,10 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
             myViewHolder.fieldName.setText(name);
             myViewHolder.value.setText(mDataSet.getString(name));
             switch (name) {
-                case "Name":
+                case "NAME":
                     myViewHolder.image.setImageResource(R.drawable.ic_modify);
                     break;
-                case "Birthday":
+                case "BIRTHDAY":
                     myViewHolder.image.setImageResource(R.drawable.ic_calendar);
                     break;
                 default:
@@ -89,7 +89,7 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     ModifierFragment modifierFragment;
                     switch (key) {
-                        case "Birthday":
+                        case "BIRTHDAY":
                             modifierFragment = new ModifyDateFragment();
                             break;
                         default:
