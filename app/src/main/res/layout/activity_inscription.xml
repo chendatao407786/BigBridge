@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".InscriptionActivity"
-    android:id="@+id/inscription">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        tools:context=".InscriptionActivity"
+        android:id="@+id/inscription">
 
 
 
-    <!--<EditText-->
+        <!--<EditText-->
         <!--android:id="@+id/name"-->
         <!--android:layout_width="300dp"-->
         <!--android:layout_height="wrap_content"-->
@@ -24,7 +27,7 @@
         <!--app:layout_constraintTop_toTopOf="parent"-->
         <!--tools:ignore="Autofill,HardcodedText" />-->
 
-    <!--<EditText-->
+        <!--<EditText-->
         <!--android:id="@+id/givenName"-->
         <!--android:hint="Given name"-->
         <!--android:layout_width="300dp"-->
@@ -38,7 +41,7 @@
         <!--app:layout_constraintStart_toStartOf="parent"-->
         <!--app:layout_constraintTop_toBottomOf="@+id/name"-->
         <!--tools:ignore="Autofill,HardcodedText" />-->
-    <!--<RadioGroup-->
+        <!--<RadioGroup-->
         <!--android:id="@+id/sex"-->
         <!--android:layout_width="300dp"-->
         <!--android:layout_height="wrap_content"-->
@@ -49,20 +52,20 @@
         <!--app:layout_constraintEnd_toEndOf="parent">-->
 
         <!--<RadioButton-->
-            <!--android:id="@+id/btnMan"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Men"-->
-            <!--android:checked="true"/>-->
+        <!--android:id="@+id/btnMan"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Men"-->
+        <!--android:checked="true"/>-->
 
         <!--<RadioButton-->
-            <!--android:id="@+id/btnWoman"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Women"/>-->
-    <!--</RadioGroup>-->
+        <!--android:id="@+id/btnWoman"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Women"/>-->
+        <!--</RadioGroup>-->
 
-    <!--<LinearLayout-->
+        <!--<LinearLayout-->
         <!--android:paddingLeft="1dp"-->
         <!--android:id="@+id/calendrierBox"-->
         <!--android:layout_width="300dp"-->
@@ -77,28 +80,28 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/sex">-->
 
         <!--<EditText-->
-            <!--android:id="@+id/birthday"-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Birthday"-->
-            <!--android:inputType="date"-->
-            <!--tools:ignore="Autofill,HardcodedText" />-->
+        <!--android:id="@+id/birthday"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:ems="10"-->
+        <!--android:hint="Birthday"-->
+        <!--android:inputType="date"-->
+        <!--tools:ignore="Autofill,HardcodedText" />-->
 
         <!--<ImageButton-->
-            <!--android:id="@+id/calendrier"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginTop="0dp"-->
-            <!--android:layout_marginEnd="0dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@drawable/ic_calendar"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toEndOf="@id/birthday"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/givenName" />-->
-    <!--</LinearLayout>-->
+        <!--android:id="@+id/calendrier"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="0dp"-->
+        <!--android:layout_marginEnd="0dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/ic_calendar"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@id/birthday"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/givenName" />-->
+        <!--</LinearLayout>-->
 
-    <!--<EditText-->
+        <!--<EditText-->
         <!--android:id="@+id/weight"-->
         <!--android:hint="Please fill your weight(kg)"-->
         <!--android:layout_width="300dp"-->
@@ -113,7 +116,7 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/calendrierBox"-->
         <!--tools:ignore="Autofill,HardcodedText" />-->
 
-    <!--<LinearLayout-->
+        <!--<LinearLayout-->
         <!--android:id="@+id/swichGroup"-->
         <!--android:layout_width="300dp"-->
         <!--android:layout_height="wrap_content"-->
@@ -127,43 +130,40 @@
         <!--app:layout_constraintTop_toBottomOf="@id/weight">-->
 
         <!--<Switch-->
-            <!--android:id="@+id/smoking"-->
-            <!--android:layout_gravity="fill_horizontal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:switchPadding="20dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:text="Do you smoke?" />-->
+        <!--android:id="@+id/smoking"-->
+        <!--android:layout_gravity="fill_horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:switchPadding="20dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Do you smoke?" />-->
 
         <!--<Switch-->
-            <!--android:id="@+id/sport"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:switchPadding="20dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:text="Do you do the sports" />-->
+        <!--android:id="@+id/sport"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:switchPadding="20dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Do you do the sports" />-->
 
         <!--<Switch-->
-            <!--android:id="@+id/heart_disease"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:switchPadding="20dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:text="Do you have any heart disease"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/sport" />-->
+        <!--android:id="@+id/heart_disease"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:switchPadding="20dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Do you have any heart disease"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/sport" />-->
 
         <!--<Switch-->
-            <!--android:id="@+id/asthma"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:switchPadding="20dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:text="Do you have any asthma problem"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/heart_disease" />-->
-    <!--</LinearLayout>-->
+        <!--android:id="@+id/asthma"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:switchPadding="20dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Do you have any asthma problem"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/heart_disease" />-->
+        <!--</LinearLayout>-->
 
-
-
-
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
