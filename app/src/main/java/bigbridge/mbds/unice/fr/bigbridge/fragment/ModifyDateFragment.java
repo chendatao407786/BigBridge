@@ -68,7 +68,7 @@ public class ModifyDateFragment extends ModifierFragment {
             if (mDay < 10) {
                 sDay = 0 + sDay;
             }
-            date = new StringBuffer().append(sDay).append("/").append(sMonth).append("/").append(mYear).toString();
+            date = new StringBuffer().append(sDay).append("-").append(sMonth).append("-").append(mYear).toString();
             mEditText.setText(date);
         }
     };
