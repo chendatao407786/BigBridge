@@ -11,6 +11,11 @@ public class Auth {
         this.password = password;
     }
 
+    public Auth(String username,String password){
+        this.username = username;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
