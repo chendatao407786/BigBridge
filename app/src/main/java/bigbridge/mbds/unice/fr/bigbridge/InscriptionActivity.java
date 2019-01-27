@@ -26,9 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InscriptionActivity extends AppCompatActivity implements PersonInfoFragment.IPersonListener, ModifierFragment.IModifierFragmentListener {
-//    private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
     private JSONObject mDataset;
-    private Button signUpButton;
     private void initDataSet(){
         ArrayMap am = new ArrayMap();
         am.put("NAME", "");
@@ -82,23 +80,4 @@ public class InscriptionActivity extends AppCompatActivity implements PersonInfo
             e.printStackTrace();
         }
     }
-
-//    private void createUser(){
-//        User user = new User(mDataset);
-//        Call<ResponseBody> call = userApi.createUser(user);
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if(response.isSuccessful()){
-//                    Toast.makeText(InscriptionActivity.this, "Created successfully", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(InscriptionActivity.this, "CreateUser error :/\n"+response.message(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(InscriptionActivity.this, "CreateUser error :/\n" + t, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 }
