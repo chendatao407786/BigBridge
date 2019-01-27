@@ -4,16 +4,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class User {
+    private String username;
     private String name;
     private String birthday;
+    private String sex;
     private int weight;
     private String smoking;
     private String sport;
     private String heart_disease;
     private String asthma;
 
-    public User(String name, String birthday, int weight, String smoking, String sport, String heart_disease, String asthma) {
+    public User(String username, String name, String sex, String birthday, int weight, String smoking, String sport, String heart_disease, String asthma) {
+        this.username = username;
         this.name = name;
+        this.sex = sex;
         this.birthday = birthday;
         this.weight = weight;
         this.smoking = smoking;
@@ -23,6 +27,8 @@ public class User {
     }
     public User(JSONObject dataSet){
         try {
+            this.sex = dataSet.getString("SEX");
+            this.username = dataSet.getString("USERNAME");
             this.name = dataSet.getString("NAME");
             this.birthday = dataSet.getString("BIRTHDAY");
             this.weight = dataSet.getInt("WEIGHT");
@@ -33,6 +39,18 @@ public class User {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public User(String username){
+        this.username = username;
+        this.name = "";
+        this.birthday = "";
+        this.weight = 0;
+        this.sex="";
+        this.smoking = "";
+        this.sport = "";
+        this.heart_disease = "";
+        this.asthma = "";
     }
 
     public String getName() {
