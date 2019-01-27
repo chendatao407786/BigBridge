@@ -34,6 +34,7 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class PersonInfoFragment extends Fragment {
+    private String username;
     private IPersonListener iPersonListener;
     private View view;
     private RecyclerView mInformationList;
@@ -61,6 +62,8 @@ public class PersonInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         try {
             mDataset = new JSONObject(bundle.getString("person"));
+            username = bundle.getString("username");
+            Toast.makeText(getContext(),username,Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -81,7 +84,7 @@ public class PersonInfoFragment extends Fragment {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createUser();
+                updateUser();
             }
         });
     }
@@ -103,22 +106,28 @@ public class PersonInfoFragment extends Fragment {
         iPersonListener = null;
     }
 
-    private void createUser(){
-        User user = new User(mDataset);
-        Call<ResponseBody> call = userApi.createUser(user);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(getContext(), "Created successfully", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), "CreateUser error 0:/\n"+response.message(), Toast.LENGTH_SHORT).show();
+    private void updateUser(){
+        try {
+            mDataset.put("USERNAME",username);
+            Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
+            User user = new User(mDataset);
+            Call<ResponseBody> call = userApi.updateUser(user,username);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getContext(), "Created successfully", Toast.LENGTH_SHORT).show();
+                    }else {
+//                        Toast.makeText(getContext(), "CreateUser error 0:/\n"+response.message(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "CreateUser error 1:/\n" + t, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    Toast.makeText(getContext(), "CreateUser error 1:/\n" + t, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
