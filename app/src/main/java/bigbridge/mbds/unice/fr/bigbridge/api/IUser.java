@@ -5,12 +5,16 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface IUser {
-    @GET("user/{id}")
-    Call<ResponseBody> getUser(@Path("id") String userid);
+    @GET("user/{username}")
+    Call<ResponseBody> getUser(@Path("username") String username);
 
     @POST("user")
     Call<ResponseBody> createUser(@Body User user);
+
+    @PUT("user/{username}")
+    Call<ResponseBody> updateUser(@Body User user,@Path("username") String username);
 }
