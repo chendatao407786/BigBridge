@@ -48,16 +48,8 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
             String name = mDataSet.names().get(i).toString();
             myViewHolder.fieldName.setText(name);
             myViewHolder.value.setText(mDataSet.getString(name));
-            switch (name) {
-                case "NAME":
-                    myViewHolder.image.setImageResource(R.drawable.ic_modify);
-                    break;
-                case "BIRTHDAY":
-                    myViewHolder.image.setImageResource(R.drawable.ic_calendar);
-                    break;
-                default:
-                    myViewHolder.image.setImageResource(R.drawable.ic_greatthan);
-            }
+            myViewHolder.image.setImageResource(R.drawable.ic_modify);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
