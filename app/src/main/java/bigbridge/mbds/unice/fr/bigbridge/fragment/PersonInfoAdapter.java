@@ -47,7 +47,11 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
         try {
             String name = mDataSet.names().get(i).toString();
             myViewHolder.fieldName.setText(name);
-            myViewHolder.value.setText(mDataSet.getString(name));
+            if(mDataSet.getString(name).equals("null")||mDataSet.getString(name).equals("0")){
+                myViewHolder.value.setText("");
+            }else {
+                myViewHolder.value.setText(mDataSet.getString(name));
+            }
             myViewHolder.image.setImageResource(R.drawable.ic_modify);
 
         } catch (JSONException e) {
