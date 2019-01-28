@@ -15,6 +15,7 @@ import bigbridge.mbds.unice.fr.bigbridge.fragment.AirMonitorFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.MyProfileFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ResultFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.WellBeingFragment;
+import bigbridge.mbds.unice.fr.bigbridge.util.PreferencesManager;
 
 public class MainActivity extends AppCompatActivity {
     String username;
@@ -23,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bundle bundle = getIntent().getExtras();
-        username = bundle.getString("username");
+//        Bundle bundle = getIntent().getExtras();
+//        username = bundle.getString("username");
+        username = PreferencesManager.getInstance(getApplicationContext()).loadUsername();
         bottomNavigationView = findViewById(R.id.botton_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -51,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void createProfileFragement(){
         MyProfileFragment myProfileFragment = new MyProfileFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("username",username);
-        myProfileFragment.setArguments(bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("username",username);
+//        myProfileFragment.setArguments(bundle);
         createFragement(myProfileFragment);
     }
 
