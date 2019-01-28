@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        PreferencesManager.getInstance(getApplicationContext()).saveUsername(username);
 //                        PreferencesManager.getInstance(getApplicationContext()).savePwd(password);
 
-                        Intent intent = new Intent(LoginActivity.this, PersonalInfoActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("username",username);
                         intent.putExtras(bundle);
