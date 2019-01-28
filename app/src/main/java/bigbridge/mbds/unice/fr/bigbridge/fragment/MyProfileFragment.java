@@ -22,6 +22,7 @@ import bigbridge.mbds.unice.fr.bigbridge.PersonalInfoActivity;
 import bigbridge.mbds.unice.fr.bigbridge.R;
 import bigbridge.mbds.unice.fr.bigbridge.api.IUser;
 import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
+import bigbridge.mbds.unice.fr.bigbridge.util.PreferencesManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,11 +47,12 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        Bundle bundle = getArguments();
-        username = bundle.getString("username");
+//        Bundle bundle = getArguments();
+//        username = bundle.getString("username");
+        username = PreferencesManager.getInstance(getContext()).loadUsername();
         myProfileDetails = view.findViewById(R.id.my_profile_details);
         initDataset();
-        modifyButton = view.findViewById(R.id.modify);
+        modifyButton = view.findViewById(R.id.modify_button);
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
