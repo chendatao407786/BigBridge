@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import bigbridge.mbds.unice.fr.bigbridge.fragment.AirMonitorFragment;
@@ -24,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Bundle bundle = getIntent().getExtras();
-//        username = bundle.getString("username");
-        username = PreferencesManager.getInstance(getApplicationContext()).loadUsername();
         bottomNavigationView = findViewById(R.id.botton_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -51,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
         createProfileFragement();
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,"Where am I?",Toast.LENGTH_LONG).show();
+    }
+
+
     private void createProfileFragement(){
         MyProfileFragment myProfileFragment = new MyProfileFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("username",username);
-//        myProfileFragment.setArguments(bundle);
         createFragement(myProfileFragment);
     }
 
