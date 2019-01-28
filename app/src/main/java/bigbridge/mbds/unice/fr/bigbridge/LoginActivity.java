@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import bigbridge.mbds.unice.fr.bigbridge.api.IAuth;
 import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
 import bigbridge.mbds.unice.fr.bigbridge.api.model.Auth;
@@ -60,15 +63,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         Toast.makeText(LoginActivity.this, "Connected successfully", Toast.LENGTH_SHORT).show();
+                        JSONObject res = new JSONArray(response.body().string()).getJSONObject(0);
 
                         //to save data of current user for the next connexion
-//                        PreferencesManager.getInstance(getApplicationContext()).saveUsername(username);
-//                        PreferencesManager.getInstance(getApplicationContext()).savePwd(password);
-
+                        PreferencesManager.getInstance(getApplicationContext()).saveUsername(res.getString("USERNAME"));
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username",username);
-                        intent.putExtras(bundle);
                         startActivity(intent);
                     } catch (Exception e) {
                         Toast.makeText(LoginActivity.this, "connection error 0 :/\n" + e.getMessage(), Toast.LENGTH_SHORT).show();
