@@ -26,7 +26,40 @@ public class PersonalInfoActivity extends AppCompatActivity implements PersonInf
     private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
     private JSONObject mDataset;
     private String username;
+    private PersonInfoFragment personInfoFragment;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inscription);
+        Bundle bundle = this.getIntent().getExtras();
+        username = bundle.getString("username");
+        initDataSet(username);
+    }
+
+    @Override
+    public void sendMsgs(String name, String v, ModifierFragment modifierFragment) {
+        modifierFragment.update(name, v);
+    }
+
+    
+    @Override
+    public void sentData(String name, String value) {
+        try {
+            mDataset.put(name, value);
+            personInfoFragment = new PersonInfoFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("person", mDataset.toString());
+            bundle.putString("username",username);
+            personInfoFragment.setArguments(bundle);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.inscription, personInfoFragment);
+            transaction.commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     private void initDataSet(final String username) {
         Call<ResponseBody> call = userApi.getUser(username);
         call.enqueue(new Callback<ResponseBody>() {
@@ -64,45 +97,5 @@ public class PersonalInfoActivity extends AppCompatActivity implements PersonInf
                 Toast.makeText(PersonalInfoActivity.this, "Connection failed"+t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private PersonInfoFragment personInfoFragment;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inscription);
-        Bundle bundle = this.getIntent().getExtras();
-        username = bundle.getString("username");
-//        try {
-//            mDataset.put("usermane",username);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        Toast.makeText(this,username,Toast.LENGTH_LONG).show();
-        initDataSet(username);
-    }
-
-    @Override
-    public void sendMsgs(String name, String v, ModifierFragment modifierFragment) {
-        modifierFragment.update(name, v);
-    }
-
-    @Override
-    public void sentData(String name, String value) {
-        try {
-            mDataset.put(name, value);
-            personInfoFragment = new PersonInfoFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("person", mDataset.toString());
-            bundle.putString("username",username);
-            personInfoFragment.setArguments(bundle);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.inscription, personInfoFragment);
-            transaction.commit();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
