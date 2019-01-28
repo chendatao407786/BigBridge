@@ -38,7 +38,7 @@ public class SignUpActivity extends Activity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signUp(editTextUsername.getText().toString().trim(), editTextPassword.getText().toString().trim(),editTextEmail.getText().toString().trim());
+                signUp(editTextUsername.getText().toString().trim(), editTextEmail.getText().toString().trim(),editTextPassword.getText().toString().trim());
             }
         });
     }
