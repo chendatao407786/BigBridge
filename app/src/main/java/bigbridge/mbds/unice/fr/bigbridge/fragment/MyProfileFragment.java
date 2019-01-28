@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,17 +40,22 @@ public class MyProfileFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private JSONObject mDataset;
     private ImageButton modifyButton;
-    public MyProfileFragment() {
-        // Required empty public constructor
-    }
+    private View header;
+    private TextView email;
+    private TextView usernameTextView;
+    public MyProfileFragment() {}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-//        Bundle bundle = getArguments();
-//        username = bundle.getString("username");
         username = PreferencesManager.getInstance(getContext()).loadUsername();
+        header = view.findViewById(R.id.profile_header);
+        username = PreferencesManager.getInstance(getContext()).loadUsername();
+        usernameTextView = header.findViewById(R.id.username);
+        email = header.findViewById(R.id.email);
+        usernameTextView.setText(username);
+        email.setText(PreferencesManager.getInstance(getContext()).loadEmail());
         myProfileDetails = view.findViewById(R.id.my_profile_details);
         initDataset();
         modifyButton = view.findViewById(R.id.modify_button);
