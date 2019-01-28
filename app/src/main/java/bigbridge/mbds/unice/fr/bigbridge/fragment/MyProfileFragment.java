@@ -1,6 +1,7 @@
 package bigbridge.mbds.unice.fr.bigbridge.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import bigbridge.mbds.unice.fr.bigbridge.PersonalInfoActivity;
 import bigbridge.mbds.unice.fr.bigbridge.R;
 import bigbridge.mbds.unice.fr.bigbridge.api.IUser;
 import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
@@ -34,6 +37,7 @@ public class MyProfileFragment extends Fragment {
     private RecyclerView.Adapter mMyProfileAdapter;
     private LinearLayoutManager mLayoutManager;
     private JSONObject mDataset;
+    private ImageButton modifyButton;
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -46,6 +50,17 @@ public class MyProfileFragment extends Fragment {
         username = bundle.getString("username");
         myProfileDetails = view.findViewById(R.id.my_profile_details);
         initDataset();
+        modifyButton = view.findViewById(R.id.modify);
+        modifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),PersonalInfoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username",username);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
