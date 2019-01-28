@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_personnel"
         android:title="My profile" />
     <item
-        android:id="@+id/medical"
+        android:id="@+id/well_being"
         android:icon="@drawable/ic_heart"
         android:title="Well Being" />
     <item
