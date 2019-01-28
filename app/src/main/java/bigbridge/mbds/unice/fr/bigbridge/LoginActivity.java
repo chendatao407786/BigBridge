@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         //to save data of current user for the next connexion
                         PreferencesManager.getInstance(getApplicationContext()).saveUsername(res.getString("USERNAME"));
+                        PreferencesManager.getInstance(getApplicationContext()).saveEmail(res.getString("EMAIL"));
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } catch (Exception e) {
