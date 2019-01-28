@@ -2,15 +2,12 @@ package bigbridge.mbds.unice.fr.bigbridge.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.ArrayMap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import bigbridge.mbds.unice.fr.bigbridge.InscriptionActivity;
+import bigbridge.mbds.unice.fr.bigbridge.MainActivity;
 import bigbridge.mbds.unice.fr.bigbridge.R;
 import bigbridge.mbds.unice.fr.bigbridge.api.IUser;
 import bigbridge.mbds.unice.fr.bigbridge.api.RetrofitInstance;
@@ -41,7 +38,7 @@ public class PersonInfoFragment extends Fragment {
     private RecyclerView.Adapter mPersonInfoAdapter;
     private JSONObject mDataset;
     private LinearLayoutManager mLayoutManager;
-    private Button signUpButton;
+    private Button updateButton;
     private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
     public PersonInfoFragment() {
         // Required empty public constructor
@@ -54,7 +51,7 @@ public class PersonInfoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_person_info, container, false);
         initDataSet();
         initializeAdapter(mDataset);
-        signUp(view);
+        setUpdateButtonListner(view);
 //        Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
         return view;
     }
@@ -79,9 +76,9 @@ public class PersonInfoFragment extends Fragment {
         mInformationList.addItemDecoration(dividerItemDecoration);
     }
 
-    private void signUp(View view){
-        signUpButton = view.findViewById(R.id.signup_button);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+    private void setUpdateButtonListner(View view){
+        updateButton = view.findViewById(R.id.signup_button);
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateUser();
@@ -109,16 +106,21 @@ public class PersonInfoFragment extends Fragment {
     private void updateUser(){
         try {
             mDataset.put("USERNAME",username);
-            Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
-            User user = new User(mDataset);
+//            Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
+            final User user = new User(mDataset);
             Call<ResponseBody> call = userApi.updateUser(user,username);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(getContext(), "Created successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Created successfully with "+username, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(),MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("username",username);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }else {
-//                        Toast.makeText(getContext(), "CreateUser error 0:/\n"+response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "CreateUser error 0:/\n"+response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 @Override
