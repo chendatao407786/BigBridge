@@ -41,7 +41,7 @@ public class MyProfileAdapter extends RecyclerView.Adapter<MyProfileAdapter.MyVi
             String name = mDataSet.names().get(i).toString();
             myViewHolder.fieldName.setText(name);
             if(mDataSet.getString(name).equals("null")||mDataSet.getString(name).equals("0")){
-                myViewHolder.value.setText("");
+                myViewHolder.value.setText("Please fill this blank");
             }else {
                 myViewHolder.value.setText(mDataSet.getString(name));
             }
