@@ -1,0 +1,25 @@
+{
+  "name": "bigbridge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "bundle-android": "react-native bundle --platform android --entry-file index.android.js --bundle-output app/src/main/assets/index.android.bundle --dev false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chendatao407786/BigBridge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chendatao407786/BigBridge/issues"
+  },
+  "homepage": "https://github.com/chendatao407786/BigBridge#readme",
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-native": "^0.58.3"
+  }
+}

@@ -1,6 +1,9 @@
 package bigbridge.mbds.unice.fr.bigbridge;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,7 @@ import bigbridge.mbds.unice.fr.bigbridge.util.PreferencesManager;
 public class MainActivity extends AppCompatActivity {
     String username;
     BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
                         createWellBeingFragment();
                         return true;
                     case R.id.pollution:
-                        createAirMonitorFragement();
+//                        createAirMonitorFragement();
+                        Intent intent = new Intent(MainActivity.this,TestReactActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.result:
                         createResultFragement();
@@ -84,4 +90,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content_main,fragment);
         fragmentTransaction.commit();
     }
+
 }
