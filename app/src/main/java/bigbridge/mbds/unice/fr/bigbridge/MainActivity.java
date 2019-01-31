@@ -1,9 +1,6 @@
 package bigbridge.mbds.unice.fr.bigbridge;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -11,24 +8,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import bigbridge.mbds.unice.fr.bigbridge.fragment.AirMonitorFragment;
+import com.facebook.react.ReactApplication;
+//import bigbridge.mbds.unice.fr.bigbridge.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+
 import bigbridge.mbds.unice.fr.bigbridge.fragment.MyProfileFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ResultFragment;
+import bigbridge.mbds.unice.fr.bigbridge.fragment.TestFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.WellBeingFragment;
-import bigbridge.mbds.unice.fr.bigbridge.util.PreferencesManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+
     String username;
     BottomNavigationView bottomNavigationView;
+    private ReactInstanceManager mReactInstanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mReactInstanceManager = ((ReactApplication) getApplication()).getReactNativeHost().getReactInstanceManager();
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.botton_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
                         createWellBeingFragment();
                         return true;
                     case R.id.pollution:
-//                        createAirMonitorFragement();
-                        Intent intent = new Intent(MainActivity.this,TestReactActivity.class);
-                        startActivity(intent);
+                        TestFragment testFragment = new TestFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, testFragment).commit();
                         return true;
                     case R.id.result:
                         createResultFragement();
@@ -56,9 +57,51 @@ public class MainActivity extends AppCompatActivity {
         createProfileFragement();
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        Toast.makeText(this,"Where am I?",Toast.LENGTH_LONG).show();
+//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostPause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostResume(this, this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onHostDestroy(this);
+        }
+    }
     @Override
     public void onBackPressed() {
-        Toast.makeText(this,"Where am I?",Toast.LENGTH_LONG).show();
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
+            mReactInstanceManager.showDevOptionsDialog();
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
 
@@ -76,8 +119,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createAirMonitorFragement(){
-        AirMonitorFragment airMonitorFragment = new AirMonitorFragment();
-        createFragement(airMonitorFragment);
+
+//        Fragment testFragment = new TestFragment();
+//        createFragement(testFragment);
+//        AirMonitorFragment airMonitorFragment = new AirMonitorFragment();
+//        createFragement(airMonitorFragment);
     }
 
     private void createResultFragement(){
@@ -91,4 +137,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void invokeDefaultOnBackPressed() {
+        super.onBackPressed();
+    }
 }

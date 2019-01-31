@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
@@ -15,7 +15,7 @@
         android:layout_above="@+id/botton_nav_view"
         android:id="@+id/content_main">
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/botton_nav_view"
