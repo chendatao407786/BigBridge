@@ -2,10 +2,11 @@ package bigbridge.mbds.unice.fr.bigbridge;
 
 import android.app.Application;
 
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-
+import com.airbnb.android.react.maps.MapsPackage;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class ReactApplication extends Application implements com.facebook.react.
         @Override
         public List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                    new MainReactPackage()
+                    new MainReactPackage(),
+                    new MapsPackage()
             );
         }
     };
@@ -27,4 +29,6 @@ public class ReactApplication extends Application implements com.facebook.react.
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
     }
+
+
 }
