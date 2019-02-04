@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/chendatao407786/BigBridge#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.7.0",
     "react-native": "^0.58.3",
     "react-native-maps": "^0.23.0"
