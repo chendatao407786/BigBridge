@@ -15,17 +15,20 @@ import com.facebook.react.ReactApplication;
 //import bigbridge.mbds.unice.fr.bigbridge.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.facebook.react.modules.core.PermissionAwareActivity;
+import com.facebook.react.modules.core.PermissionListener;
 
 import bigbridge.mbds.unice.fr.bigbridge.fragment.MyProfileFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ResultFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.TestFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.WellBeingFragment;
 
-public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler,PermissionAwareActivity {
 
     String username;
     BottomNavigationView bottomNavigationView;
     private ReactInstanceManager mReactInstanceManager;
+    private PermissionListener mPermissionListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,5 +143,11 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     @Override
     public void invokeDefaultOnBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void requestPermissions(String[] permissions, int requestCode, PermissionListener listener) {
+        mPermissionListener = listener;
+        requestPermissions(permissions, requestCode);
     }
 }
