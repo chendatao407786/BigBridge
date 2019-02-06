@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ToastAndroid, Button, PermissionsAndroid } from 'react-native';
+import { StyleSheet, Text, View, ToastAndroid, Button, PermissionsAndroid, ScrollView,Dimensions,StatusBar } from 'react-native';
 import axios from 'axios';
 import MapView, { Marker } from 'react-native-maps';
-let id = 0;
-let url
+import AQIDetails from './AQIDetails';
+
+
 class StationMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stations: [],
             initPosition: null,
+            currentStation: null
         }
         this.getUserLocation = this.getUserLocation.bind(this);
         this.getNearestStation = this.getNearestStation.bind(this);
         this.onPressHandler = this.onPressHandler.bind(this);
     }
     componentWillMount() {
-        id++;
+
         this.getUserLocation();
 
         // if(this.state.initPosition!=null){
@@ -25,7 +27,7 @@ class StationMap extends Component {
     };
 
     getNearestStation = (latitude, longitude) => {
-        url = 'https://api.waqi.info/mapq/nearest/?n=10&geo=1/' + latitude + '/' + longitude;
+        let url = 'https://api.waqi.info/mapq/nearest/?n=10&geo=1/' + latitude + '/' + longitude;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -61,13 +63,6 @@ class StationMap extends Component {
             .catch(e => {
                 console.error(e);
             });
-        // axios
-        //     .get('https://api.waqi.info/mapq/nearest/?n=1')
-        //     .then(res => {
-        //         console.log(res);
-        //     },e => {
-        //         console.log(e);
-        //     })
     }
     getUserLocation = () => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -78,27 +73,64 @@ class StationMap extends Component {
             })
         }, err => console.log(err))
     }
-    onPressHandler(e){
-        console.log(e.nativeEvent);
+    onPressHandler(id) {
+        let url = 'https://api.waqi.info/api/feed/@' + id + '/obs.fr.json'
+        console.log(url);
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                res = JSON.parse(res._bodyText).rxs.obs[0].msg;
+                console.log(res);
+                let polluants = [];
+                res.iaqi.map(polluant => {
+                    let newPolluant = {
+                        name: polluant.p,
+                        value: polluant.v,
+                        update: polluant.h,
+                    }
+                    polluants.push(newPolluant);
+                })
+                let station = {
+                    aqi: res.aqi,
+                    time: res.time,
+                    city: res.city.name,
+                    polluants: polluants,
+                };
+                console.log(station);
+                this.setState({
+                    currentStation: station
+                })
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
-    render() {
 
+
+    render() {
+        // let station = (
+        //     <Text>{this.state.currentStation}</Text>
+        // )
         if (this.state.initPosition === null) {
             return (
-                <Text>Loading....{id}</Text>
+                <Text>Loading....</Text>
             )
         } else {
-            // this.getNearestStation(this.state.initPosition.coords.latitude, this.state.initPosition.coords.longitude);
             return (
-                <View style={styles.mapContainer}>
+                <View style={styles.mainContainer}>
                     <MapView
                         style={styles.map}
                         showsUserLocation
                         initialRegion={{
                             latitude: this.state.initPosition.coords.latitude,
                             longitude: this.state.initPosition.coords.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
+                            latitudeDelta: 0.122,
+                            longitudeDelta: 0.0821,
                         }}>
                         {
                             this.state.stations.map((station) => (
@@ -107,17 +139,25 @@ class StationMap extends Component {
                                     title={station.name}
                                     coordinate={station.coordinate}
                                     key={station.id}
-                                    // onPress={this.onPressHandler(station.id)} 
-                                    >
-                                    <View style={station.value<50?styles.marker_green:styles.marker_orange} onMarkerPress={e => this.onPressHandler(e)}>
+                                    onPress={e => this.onPressHandler(station.id)}>
+                                    <View style={[station.value < 50 ? styles.marker_green : styles.marker_orange, styles.marker]}>
                                         <Text style={styles.text}>{station.value}</Text>
                                     </View>
                                 </MapView.Marker>
                             ))
                         }
                     </MapView>
-                    
-                    {/* <Button title="test" onPress={this.onPressHandler()} /> */}
+                    <View style={styles.detailContainer}>
+                    {this.state.currentStation != null ?
+                        <AQIDetails
+                            name={this.state.currentStation.city}
+                            value={this.state.currentStation.aqi}
+                            aqi={this.state.currentStation.polluants}
+                            time={this.state.currentStation.time} />
+                        :
+                        <Text>Nothing here</Text>}
+                    </View>  
+                    {/* <View style={styles.tab}></View> */}
                 </View>
             )
         }
@@ -125,31 +165,36 @@ class StationMap extends Component {
 }
 
 const styles = StyleSheet.create({
-    mapContainer: {
+    mainContainer: {
         width: '100%',
-        height: 400
+        flex:1
     },
     map: {
         width: '100%',
-        height: '100%'
+        height: 400
     },
-    marker_green:{
-        width:20,
-        height:20,
-        backgroundColor:'green',
-        borderRadius:10
+    detailContainer:{
+        // backgroundColor:'steelblue',
+        // height:100
+        height:(Dimensions.get('window').height-400-56-StatusBar.currentHeight)
     },
-    marker_orange:{
-        backgroundColor:'orange',
-        width:20,
-        height:20,
-        borderRadius:10
+    
+    marker: {
+        width: 20,
+        height: 20,
+        borderRadius: 10
     },
-    text:{
-        color:'#FFF',
-        fontSize:10,
-        lineHeight:20,
-        textAlign:'center'
+    marker_green: {
+        backgroundColor: 'green',
+    },
+    marker_orange: {
+        backgroundColor: 'orange',
+    },
+    text: {
+        color: '#FFF',
+        fontSize: 10,
+        lineHeight: 20,
+        textAlign: 'center'
     }
 })
 
