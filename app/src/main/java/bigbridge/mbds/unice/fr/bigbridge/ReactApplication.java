@@ -2,6 +2,7 @@ package bigbridge.mbds.unice.fr.bigbridge;
 
 import android.app.Application;
 
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -21,7 +22,8 @@ public class ReactApplication extends Application implements com.facebook.react.
         public List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-                    new MapsPackage()
+                    new MapsPackage(),
+                    new LinearGradientPackage()
             );
         }
     };
