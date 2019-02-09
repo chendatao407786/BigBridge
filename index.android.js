@@ -1,10 +1,7 @@
 import React from 'react';
 import StationMap from './components/StationMap';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+  AppRegistry
 } from 'react-native';
 
 class HelloWorldApp extends React.Component {
