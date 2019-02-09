@@ -11,7 +11,8 @@ class StationMap extends Component {
         this.state = {
             stations: [],
             initPosition: null,
-            currentStation: null
+            currentStation: null,
+            msg:"Please click a station on the map to see the details"
         }
         this.getUserLocation = this.getUserLocation.bind(this);
         this.getNearestStation = this.getNearestStation.bind(this);
@@ -28,7 +29,7 @@ class StationMap extends Component {
     };
 
     getNearestStation = (latitude, longitude) => {
-        let url = 'https://api.waqi.info/mapq/nearest/?n=10&geo=1/' + latitude + '/' + longitude;
+        let url = 'https://api.waqi.info/mapq/nearest/?n=20&geo=1/' + latitude + '/' + longitude;
         fetch(url, {
             method: 'GET',
             headers: {
@@ -78,8 +79,11 @@ class StationMap extends Component {
         })
     }
     onPressHandler(id) {
+        this.setState({
+            msg:"Loading...",
+            currentStation:null
+        })
         let url = 'https://api.waqi.info/api/feed/@' + id + '/obs.fr.json'
-        console.log(url);
         fetch(url, {
             method: 'GET',
             headers: {
@@ -95,34 +99,34 @@ class StationMap extends Component {
                     let newPolluant;
                     switch (polluant.p) {
                         case 'pm25':
-                            newPolluant = { name: "PM2.5", value: polluant.v, update: polluant.h, unity: 'AQI',srcImage:"pm25" };
+                            newPolluant = { name: "PM2.5", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "pm25" };
                             break;
                         case 'pm10':
-                            newPolluant = { name: "PM10", value: polluant.v, update: polluant.h, unity: 'AQI',srcImage:"pm10"  };
+                            newPolluant = { name: "PM10", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "pm10" };
                             break;
                         case 'o3':
-                            newPolluant = { name: "O3", value: polluant.v, update: polluant.h, unity: 'AQI',srcImage:"o3"  };
+                            newPolluant = { name: "O3", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "o3" };
                             break;
                         case 'no2':
-                            newPolluant = { name: "NO2", value: polluant.v, update: polluant.h, unity: 'AQI',srcImage:"no2"  }
+                            newPolluant = { name: "NO2", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "no2" }
                             break;
                         case 'so2':
-                            newPolluant = { name: "SO2", value: polluant.v, update: polluant.h, unity: 'AQI',srcImage:"so2"  }
+                            newPolluant = { name: "SO2", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "so2" }
                             break;
                         case 't':
-                            newPolluant = { name: "Temperature", value: polluant.v, update: polluant.h, unity: '°C' ,srcImage:"temperature" }
+                            newPolluant = { name: "Temperature", value: polluant.v, update: polluant.h, unity: '°C', srcImage: "temperature" }
                             break;
                         case 'p':
-                            newPolluant = { name: "Atmos.", value: polluant.v, update: polluant.h, unity: 'MBAR',srcImage:"atmos"  }
+                            newPolluant = { name: "Atmos.", value: polluant.v, update: polluant.h, unity: 'MBAR', srcImage: "atmos" }
                             break;
                         case 'h':
-                            newPolluant = { name: "Humidity", value: polluant.v, update: polluant.h, unity: '%',srcImage:"humidity"  }
+                            newPolluant = { name: "Humidity", value: polluant.v, update: polluant.h, unity: '%', srcImage: "humidity" }
                             break;
                         case 'w':
-                            newPolluant = { name: "Wind", value: polluant.v, update: polluant.h, unity: 'M/S' ,srcImage:"wind" }
+                            newPolluant = { name: "Wind", value: polluant.v, update: polluant.h, unity: 'M/S', srcImage: "wind" }
                             break;
                         case 'co':
-                            newPolluant = { name: "CO", value: polluant.v, update: polluant.h, unity: 'AQI' ,srcImage:"co" }
+                            newPolluant = { name: "CO", value: polluant.v, update: polluant.h, unity: 'AQI', srcImage: "co" }
                             break;
                         default:
                             newPolluant = { name: String(polluant.p).toUpperCase(), value: polluant.v, update: polluant.h, unity: '' }
@@ -137,7 +141,8 @@ class StationMap extends Component {
                 };
                 console.log(station);
                 this.setState({
-                    currentStation: station
+                    currentStation: station,
+                    msg:"Loaded"
                 })
             })
             .catch(e => {
@@ -148,17 +153,17 @@ class StationMap extends Component {
     markerColor = (value) => {
         let bkcolor;
         if (value <= 50) {
-            bkcolor = { backgroundColor: '#1A936F' };
+            bkcolor = { backgroundColor: '#1b5e20' };
         } else if (value <= 100) {
-            bkcolor = { backgroundColor: '#9C9304' };
+            bkcolor = { backgroundColor: '#ffb300' };
         } else if (value <= 150) {
-            bkcolor = { backgroundColor: '#CC970A' };
+            bkcolor = { backgroundColor: '#ff8f00' };
         } else if (value <= 200) {
-            bkcolor = { backgroundColor: '#C0380F' };
+            bkcolor = { backgroundColor: '#c62828' };
         } else if (value <= 300) {
-            bkcolor = { backgroundColor: '#8217C5' };
+            bkcolor = { backgroundColor: '#6a1b9a' };
         } else if (value > 300) {
-            bkcolor = { backgroundColor: '#8C0F1E' };
+            bkcolor = { backgroundColor: '#3e2723' };
         } else {
             bkcolor = { backgroundColor: 'gray' };
         }
@@ -168,43 +173,52 @@ class StationMap extends Component {
     render() {
         if (this.state.initPosition === null) {
             return (
-                <Text>Loading....</Text>
+                <Text style={{ fontFamily: 'Roboto-Light', fontSize: 15 }}>Loading......</Text>
             )
         } else {
             return (
                 <View style={styles.mainContainer}>
-                    <MapView
-                        style={styles.map}
-                        showsUserLocation
-                        initialRegion={{
-                            latitude: this.state.initPosition.coords.latitude,
-                            longitude: this.state.initPosition.coords.longitude,
-                            latitudeDelta: 0.122,
-                            longitudeDelta: 0.0821,
-                        }}>
-                        {
-                            this.state.stations.map((station) => (
-                                <Marker
-                                    id={station.id}
-                                    coordinate={station.coordinate}
-                                    // calloutOffset={{ x: -1, y: 1 }}
-                                    // calloutAnchor={{ x: 0.5, y: 0.1 }}
-                                    onPress={e => this.onPressHandler(station.id)}
-                                >
-                                    <View>
-                                        <View style={[this.markerColor(station.value), styles.marker]}>
-                                            <Text style={styles.text}>{station.value}</Text>
+                    <View style={{
+                        shadowOffset:{
+                            width:10,
+                            height:10
+                        },
+                        elevation:3,
+                        backgroundColor:'gray'
+                    }}>
+                        <MapView
+                            style={styles.map}
+                            showsUserLocation
+                            initialRegion={{
+                                latitude: this.state.initPosition.coords.latitude,
+                                longitude: this.state.initPosition.coords.longitude,
+                                latitudeDelta: 0.222,
+                                longitudeDelta: 0.1821,
+                            }}>
+                            {
+                                this.state.stations.map((station) => (
+                                    <Marker
+                                        id={station.id}
+                                        coordinate={station.coordinate}
+                                        // calloutOffset={{ x: -1, y: 1 }}
+                                        // calloutAnchor={{ x: 0.5, y: 0.1 }}
+                                        onPress={e => this.onPressHandler(station.id)}
+                                    >
+                                        <View>
+                                            <View style={[this.markerColor(station.value), styles.marker]}>
+                                                <Text style={styles.text}>{station.value}</Text>
+                                            </View>
+                                            <Callout tooltip style={styles.customView}>
+                                                <CustomCallout>
+                                                    <Text style={{flex:1,fontFamily: 'Roboto-Light',fontSize: 15, fontWeight: "300",textAlign: 'center',flexWrap:'nowrap'}}>{station.name}</Text>
+                                                </CustomCallout>
+                                            </Callout>
                                         </View>
-                                        <Callout tooltip style={styles.customView}>
-                                            <CustomCallout>
-                                                <Text style={{ fontFamily: 'Roboto-Light', fontSize: 15, textAlign: 'center',fontWeight:"300"}}>{station.name}</Text>
-                                            </CustomCallout>
-                                        </Callout>
-                                    </View>
-                                </Marker>
-                            ))
-                        }
-                    </MapView>
+                                    </Marker>
+                                ))
+                            }
+                        </MapView>
+                    </View>
                     <View style={styles.detailContainer}>
                         {this.state.currentStation != null ?
                             <AQIDetails
@@ -213,10 +227,10 @@ class StationMap extends Component {
                                 aqi={this.state.currentStation.polluants}
                                 time={this.state.currentStation.time} />
                             :
-                            <View style={{flex:1,backgroundColor:'#bdc3c7',justifyContent:'center',padding:15}}>
-                                <Text style={{fontFamily:'Roboto-Light',color:'#FFF',fontSize:25,fontWeight:'400'}}>Please click a station on the map to see the details</Text>
+                            <View style={{ flex: 1, backgroundColor: '#bdc3c7', justifyContent: 'center', padding: 15 }}>
+                                <Text style={{ fontFamily: 'Roboto-Light', color: '#FFF', fontSize: 25, fontWeight: '400', textAlign: "center" }}>{this.state.msg}</Text>
                             </View>
-                            }
+                        }
                     </View>
                 </View>
             )
@@ -230,7 +244,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     customView: {
-        top:-5
+        top: -5
     },
     map: {
         width: '100%',
