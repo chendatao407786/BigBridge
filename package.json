@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "bundle-android": "react-native bundle --platform android --entry-file index.android.js --bundle-output app/src/main/assets/index.android.bundle --dev false"
+    "bundle-android": "react-native bundle --platform android --entry-file index.android.js --bundle-output app/src/main/assets/index.android.bundle --dev false --assets-dest ./app/src/main/assets/"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,15 @@
   },
   "homepage": "https://github.com/chendatao407786/BigBridge#readme",
   "dependencies": {
-    "axios": "^0.18.0",
     "react": "^16.7.0",
     "react-native": "^0.58.3",
+    "react-native-linear-gradient": "^2.5.3",
     "react-native-maps": "^0.23.0"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts",
+      "./assets/images"
+    ]
   }
 }
