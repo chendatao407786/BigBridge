@@ -166,9 +166,6 @@ class StationMap extends Component {
     }
 
     render() {
-        // let station = (
-        //     <Text>{this.state.currentStation}</Text>
-        // )
         if (this.state.initPosition === null) {
             return (
                 <Text>Loading....</Text>
@@ -205,30 +202,6 @@ class StationMap extends Component {
                                         </Callout>
                                     </View>
                                 </Marker>
-                                // <Marker
-                                //     id={station.id}
-                                //     // title={station.name}
-                                //     coordinate={station.coordinate}
-                                //     key={station.id}
-                                //     ref={marker => {
-                                //         this.marker1 = marker;
-                                //       }}
-                                //     onPress={e => this.onPressHandler(station.id)}
-                                //     onCalloutPress={() => {
-                                //         console.log("Marker/onCalloutPress");
-                                //         this.marker1.hideCallout();
-                                //     }}>
-                                //     {/* <Callout tooltip={true} style={{width:20,height:20}}>
-                                //         <View>
-                                //             <Text>
-                                //                 callout text
-                                //             </Text>
-                                //         </View>
-                                //     </Callout> */}
-                                //     <View style={[this.markerColor(station.value), styles.marker]}>
-                                //         <Text style={styles.text}>{station.value}</Text>
-                                //     </View>
-                                // </Marker>
                             ))
                         }
                     </MapView>
@@ -240,9 +213,11 @@ class StationMap extends Component {
                                 aqi={this.state.currentStation.polluants}
                                 time={this.state.currentStation.time} />
                             :
-                            <Text>Nothing here</Text>}
+                            <View style={{flex:1,backgroundColor:'#bdc3c7',justifyContent:'center',padding:15}}>
+                                <Text style={{fontFamily:'Roboto-Light',color:'#FFF',fontSize:25,fontWeight:'400'}}>Please click a station on the map to see the details</Text>
+                            </View>
+                            }
                     </View>
-                    {/* <View style={styles.tab}></View> */}
                 </View>
             )
         }
@@ -256,8 +231,6 @@ const styles = StyleSheet.create({
     },
     customView: {
         top:-5
-        // width: 140,
-        // height: 100
     },
     map: {
         width: '100%',
