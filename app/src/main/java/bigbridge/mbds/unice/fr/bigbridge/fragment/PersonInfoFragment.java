@@ -60,7 +60,6 @@ public class PersonInfoFragment extends Fragment {
         try {
             mDataset = new JSONObject(bundle.getString("person"));
             username = bundle.getString("username");
-            Toast.makeText(getContext(),username,Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -106,7 +105,6 @@ public class PersonInfoFragment extends Fragment {
     private void updateUser(){
         try {
             mDataset.put("USERNAME",username);
-//            Toast.makeText(getContext(),mDataset.toString(),Toast.LENGTH_LONG).show();
             final User user = new User(mDataset);
             Call<ResponseBody> call = userApi.updateUser(user,username);
             call.enqueue(new Callback<ResponseBody>() {
