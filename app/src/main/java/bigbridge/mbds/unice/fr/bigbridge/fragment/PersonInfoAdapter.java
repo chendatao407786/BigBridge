@@ -1,10 +1,9 @@
 package bigbridge.mbds.unice.fr.bigbridge.fragment;
 
 
-import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import bigbridge.mbds.unice.fr.bigbridge.R;
-
-import static bigbridge.mbds.unice.fr.bigbridge.R.string.name;
 
 public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.MyViewHolder> {
     private JSONObject mDataSet;
@@ -79,7 +75,6 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), fieldName.getText(), Toast.LENGTH_LONG).show();
                     String key = fieldName.getText().toString();
                     String valeur = value.getText().toString();
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -89,6 +84,30 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
                         case "BIRTHDAY":
                             modifierFragment = new ModifyDateFragment();
                             break;
+                        case "SEX":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            Bundle bundle = makeBundle("Men","Women");
+                            modifierFragment.setArguments(bundle);
+                            break;
+                        case "SMOKING":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            modifierFragment.setArguments(makeBundle("Yes","No"));
+                            break;
+                        case "SPORT":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            modifierFragment.setArguments(makeBundle("Yes","No"));
+                            break;
+                        case "HEART DISEASE":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            modifierFragment.setArguments(makeBundle("Yes","No"));
+                            break;
+                        case "ASTHMA":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            modifierFragment.setArguments(makeBundle("Yes","No"));
+                            break;
+                        case "WEIGHT":
+                            modifierFragment = new ModifyWeightFragment();
+                            break;
                         default:
                             modifierFragment = new ModifyTextFragment();
                     }
@@ -97,7 +116,14 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
                     transaction.commit();
                 }
             });
+
             image = itemView.findViewById(R.id.iconModify);
+        }
+        private Bundle makeBundle(String name1, String name2){
+            Bundle bundle = new Bundle();
+            bundle.putString("name1",name1);
+            bundle.putString("name2",name2);
+            return bundle;
         }
     }
 }
