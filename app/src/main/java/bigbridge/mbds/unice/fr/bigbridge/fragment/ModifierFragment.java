@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import bigbridge.mbds.unice.fr.bigbridge.R;
@@ -21,7 +20,7 @@ public class ModifierFragment extends Fragment {
     String mValue;
     private TextView mTitleActionBar;
     private Toolbar mToolbar;
-    protected EditText mEditText;
+//    protected TextView mTextView;
     private ActionBar mActionBar;
 
     public interface IModifierFragmentListener {
@@ -36,7 +35,7 @@ public class ModifierFragment extends Fragment {
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iModifierFragmentListener.sentData(mTitle,mEditText.getText().toString());
+                iModifierFragmentListener.sentData(mTitle, mValue);
             }
         });
         mActionBar.setDisplayShowTitleEnabled(false);
@@ -44,10 +43,11 @@ public class ModifierFragment extends Fragment {
         mTitleActionBar.setText(mTitle);
     }
 
-    protected void initModifyContent(View view){
-        mEditText = view.findViewById(R.id.modify_content);
-        mEditText.setText(mValue);
-    }
+//    protected void initModifyContent(View view){
+//        mTextView = view.findViewById(R.id.modify_content);
+//        mTextView.setText(mValue);
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
