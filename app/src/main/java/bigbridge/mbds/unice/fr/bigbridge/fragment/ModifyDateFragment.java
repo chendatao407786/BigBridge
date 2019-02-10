@@ -4,14 +4,12 @@ package bigbridge.mbds.unice.fr.bigbridge.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,6 +50,26 @@ public class ModifyDateFragment extends ModifierFragment {
         });
         return view;
     }
+    private void initModifyContent(View view){
+        mBirthday = view.findViewById(R.id.modify_content);
+        mBirthday.setText(mValue);
+        mBirthday.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mValue = mBirthday.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 
     private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -69,7 +87,7 @@ public class ModifyDateFragment extends ModifierFragment {
                 sDay = 0 + sDay;
             }
             date = new StringBuffer().append(sDay).append("-").append(sMonth).append("-").append(mYear).toString();
-            mEditText.setText(date);
+            mBirthday.setText(date);
         }
     };
 
