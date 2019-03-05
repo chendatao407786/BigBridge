@@ -1,6 +1,6 @@
 package bigbridge.mbds.unice.fr.bigbridge;
 
-import android.content.Intent;
+import android.accounts.AccountManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -18,10 +18,11 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
 
+import bigbridge.mbds.unice.fr.bigbridge.fragment.AirFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.MyProfileFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.ResultFragment;
-import bigbridge.mbds.unice.fr.bigbridge.fragment.TestFragment;
 import bigbridge.mbds.unice.fr.bigbridge.fragment.WellBeingFragment;
+import bigbridge.mbds.unice.fr.bigbridge.util.PreferencesManager;
 
 public class MainActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler,PermissionAwareActivity {
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
     BottomNavigationView bottomNavigationView;
     private ReactInstanceManager mReactInstanceManager;
     private PermissionListener mPermissionListener;
+    PreferencesManager preferencesManager = PreferencesManager.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                         createWellBeingFragment();
                         return true;
                     case R.id.pollution:
-                        TestFragment testFragment = new TestFragment();
+                        AirFragment testFragment = new AirFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, testFragment).commit();
                         return true;
                     case R.id.result:
@@ -57,7 +59,12 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
                 return false;
             }
         });
-        createProfileFragement();
+        if(preferencesManager.get_is_just_authorized() == true){
+            bottomNavigationView.setSelectedItemId(R.id.well_being);
+            preferencesManager.set_is_just_authorized(false);
+        }else{
+            createProfileFragement();
+        }
     }
 
 //    @Override
@@ -123,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements DefaultHardwareBa
 
     private void createAirMonitorFragement(){
 
-//        Fragment testFragment = new TestFragment();
+//        Fragment testFragment = new AirFragment();
 //        createFragement(testFragment);
 //        AirMonitorFragment airMonitorFragment = new AirMonitorFragment();
 //        createFragement(airMonitorFragment);

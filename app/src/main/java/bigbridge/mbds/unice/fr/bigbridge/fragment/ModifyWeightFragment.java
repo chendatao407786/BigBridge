@@ -6,8 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.common.internal.Objects;
 
 import bigbridge.mbds.unice.fr.bigbridge.R;
 
@@ -15,8 +20,8 @@ import bigbridge.mbds.unice.fr.bigbridge.R;
  * A simple {@link Fragment} subclass.
  */
 public class ModifyWeightFragment extends ModifierFragment {
-
     NumberPicker mNumberPicker;
+    View mView;
     public ModifyWeightFragment() {
         // Required empty public constructor
     }
@@ -35,12 +40,21 @@ public class ModifyWeightFragment extends ModifierFragment {
         mNumberPicker.setMaxValue(100);
         mNumberPicker.setValue(Integer.parseInt(mValue));
         mNumberPicker.setWrapSelectorWheel(false);
+
         mNumberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 mValue = String.valueOf(newVal);
+                int index = Integer.parseInt(mValue)-10;
+//                Toast.makeText(getActivity(),String.valueOf(newVal-10),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(),mValue,Toast.LENGTH_LONG).show();
+                mView = picker.getChildAt(index);//min value est 10
+                if(mView instanceof EditText){
+                    Toast.makeText(getActivity(),"yes",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
+
 
 }
