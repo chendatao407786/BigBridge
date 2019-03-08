@@ -13,6 +13,9 @@ import retrofit2.http.Path;
 public interface IFitbit  {
     @GET("{client_id}/activities/heart/date/today/1d/1min.json")
     Call<ResponseBody> getHeartRate(@Path("client_id") String client_id,@Header("Authorization") String authorization);
+
+    @GET("{client_id}/activities/date/{date}.json")
+    Call<ResponseBody> getActivitiesSummary(@Path("client_id") String client_id,@Path("date") String date, @Header("Authorization") String authorization);
 }
 //public interface IFitbit  {
 //    @GET("-/activities/heart/date/2019-03-04/1d/1min/time/12:00/12:10.json")

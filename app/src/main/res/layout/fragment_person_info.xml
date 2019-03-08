@@ -21,7 +21,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/button_background"
         android:backgroundTint="#FF3030"
-        android:text="Sign up"
+        android:text="Save"
         android:textColor="#FFFFFF"
         app:layout_constraintTop_toBottomOf="@+id/informationList"
         app:layout_constraintEnd_toEndOf="parent"

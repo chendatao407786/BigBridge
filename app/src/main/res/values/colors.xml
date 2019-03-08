@@ -6,4 +6,10 @@
     <color name="actionBarTitle">#1A936F</color>
     <color name="darkgreen">#114B5F</color>
     <color name="buttonRed">#FF3030</color>
+    <color name="orange">#FFA500</color>
+    <color name="darkBlue">#01172F</color>
+    <color name="blue">#3066BE</color>
+    <color name="sunset">#FF595E</color>
+    <color name="turquoise">#00CED1</color>
+    <color name="gold">#FFCC00</color>
 </resources>

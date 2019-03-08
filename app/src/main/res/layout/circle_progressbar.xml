@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progressBarLayout">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circlePB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:background_progressbar_color="#bdbdbd"
+            app:background_progressbar_width="2dp"
+            app:progressbar_color="@color/blue"
+            app:progressbar_width="5dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_gravity="center"
+            android:scaleX=".30"
+            android:scaleY=".30"
+            android:src="@drawable/ic_calorie"
+            android:tint="@color/blue"
+            app:layout_constraintGuide_percent=".30"
+            android:id="@+id/bkImage"/>
+    </FrameLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/activityIndex"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:maxLines="1"-->
+        <!--android:textAlignment="center"-->
+        <!--android:fontFamily="@font/roboto_light"-->
+        <!--android:autoSizeTextType="uniform"-->
+        <!--android:textColor="#8d8d8d"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/progressBarLayout"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:ellipsize="end"/>-->
+</android.support.constraint.ConstraintLayout>

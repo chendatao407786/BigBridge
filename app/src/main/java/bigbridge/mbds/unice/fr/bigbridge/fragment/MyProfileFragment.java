@@ -88,11 +88,8 @@ public class MyProfileFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
+            public void onFailure(Call<ResponseBody> call, Throwable t) {}
         });
     }
 

@@ -8,6 +8,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".PersonalInfoActivity">
-
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
