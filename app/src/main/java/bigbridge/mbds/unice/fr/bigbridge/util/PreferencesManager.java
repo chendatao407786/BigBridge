@@ -17,6 +17,15 @@ public class PreferencesManager {
     private static final String USER_ID ="clientID";
     private static final String ACCESS_TOKEN = "accessToken";
     private static final String TOKEN_TYPE ="tokenType";
+    private static final String WEIGHT ="weight";
+    private static final String HEIGHT ="height";
+    private static final String SMOKING ="smoking";
+    private static final String DRINKING ="drinking";
+    private static final String CODEPOSTAL ="codePostal";
+//    private static final String STATION ="station";
+    private static final String SEX ="sex";
+    private static final String DDN ="ddn";
+
     public static final String HAVE_DEVICE_ID ="haveTrackerIds";
     public static final String MY_DEVICE_ID="deviceID";
     public static final String FULL_AUTHORIZATION= "fullAuthorizationToken";
@@ -93,5 +102,47 @@ public class PreferencesManager {
     }
     public String get_token_type(){
         return sharedPreferences.getString(TOKEN_TYPE,null);
+    }
+    public void setWeight(int weight){
+        sharedPreferences.edit().putInt(WEIGHT,weight).apply();
+    }
+    public int getweight(){
+        return sharedPreferences.getInt(WEIGHT,0);
+    }
+    public void setHeight(int height){
+        sharedPreferences.edit().putInt(HEIGHT,height).apply();
+    }
+    public int getHeight(){
+        return sharedPreferences.getInt(HEIGHT,0);
+    }
+    public void setSmoking(String smoking){
+        sharedPreferences.edit().putString(SMOKING,smoking).apply();
+    }
+    public String getSmoking(){
+        return sharedPreferences.getString(SMOKING,"No");
+    }
+    public void setDrinking(String drinking){
+        sharedPreferences.edit().putString(DRINKING,drinking).apply();
+    }
+    public String getDrinking(){
+        return sharedPreferences.getString(DRINKING,"No");
+    }
+    public void setCodepostal(String codepostal){
+        sharedPreferences.edit().putString(CODEPOSTAL,codepostal).apply();
+    }
+    public String getCodepostal(){
+        return sharedPreferences.getString(CODEPOSTAL,null);
+    }
+    public void setSex(String sex){
+        sharedPreferences.edit().putString(SEX,sex).apply();
+    }
+    public String getSex(){
+        return sharedPreferences.getString(SEX,"");
+    }
+    public void setDdn(String ddn){
+        sharedPreferences.edit().putString(DDN,ddn).apply();
+    }
+    public String getDdn(){
+        return sharedPreferences.getString(DDN,null);
     }
 }

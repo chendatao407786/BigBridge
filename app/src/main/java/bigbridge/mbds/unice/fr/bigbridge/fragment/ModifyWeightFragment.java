@@ -36,11 +36,14 @@ public class ModifyWeightFragment extends ModifierFragment {
     }
     private void initModifyContent(View view){
         mNumberPicker = view.findViewById(R.id.numberPicker);
-        mNumberPicker.setMinValue(10);
+        mNumberPicker.setMinValue(0);
         mNumberPicker.setMaxValue(100);
-        mNumberPicker.setValue(Integer.parseInt(mValue));
+        if(mValue == ""){
+            mNumberPicker.setValue(0);
+        }else {
+            mNumberPicker.setValue(Integer.parseInt(mValue));
+        }
         mNumberPicker.setWrapSelectorWheel(false);
-
         mNumberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

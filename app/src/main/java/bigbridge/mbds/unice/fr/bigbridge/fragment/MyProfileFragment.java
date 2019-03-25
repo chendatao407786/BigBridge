@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import retrofit2.Response;
  */
 public class MyProfileFragment extends Fragment {
     private IUser userApi = RetrofitInstance.getRetrofitInstance().create(IUser.class);
+    PreferencesManager preferencesManager = PreferencesManager.getInstance(getContext());
     private String username;
     private RecyclerView myProfileDetails;
     private RecyclerView.Adapter mMyProfileAdapter;
@@ -43,15 +45,15 @@ public class MyProfileFragment extends Fragment {
     private View header;
     private TextView email;
     private TextView usernameTextView;
+    private String TAG = "MyProfileFragment";
     public MyProfileFragment() {}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        username = PreferencesManager.getInstance(getContext()).loadUsername();
+        username = preferencesManager.loadUsername();
         header = view.findViewById(R.id.profile_header);
-        username = PreferencesManager.getInstance(getContext()).loadUsername();
         usernameTextView = header.findViewById(R.id.username);
         email = header.findViewById(R.id.email);
         usernameTextView.setText(username);
@@ -81,6 +83,19 @@ public class MyProfileFragment extends Fragment {
                 try {
                     JSONArray jsonArray = new JSONArray(response.body().string());
                     mDataset = jsonArray.getJSONObject(0);
+                    Log.i(TAG,mDataset.toString());
+                    preferencesManager.setWeight(mDataset.getInt("WEIGHT"));
+                    preferencesManager.setHeight(mDataset.getInt("HEIGHT"));
+                    preferencesManager.setSmoking(mDataset.getString("SMOKING"));
+                    preferencesManager.setSex(mDataset.getString("SEX"));
+                    preferencesManager.setCodepostal(mDataset.getString("POST CODE"));
+                    preferencesManager.setDrinking(mDataset.getString("DRINKING"));
+                    preferencesManager.setDdn(mDataset.getString("BIRTHDAY"));
+                    Log.i(TAG,String.valueOf(mDataset.getInt("WEIGHT")));
+                    Log.i(TAG,String.valueOf(mDataset.getInt("HEIGHT")));
+//                    Log.i(TAG,"gender:"+preferencesManager.getSex());
+
+
                     initializeAdapter(mDataset);
                 } catch (JSONException e) {
                     e.printStackTrace();

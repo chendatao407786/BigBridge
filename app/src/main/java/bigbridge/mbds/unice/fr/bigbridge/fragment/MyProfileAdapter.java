@@ -71,6 +71,15 @@ public class MyProfileAdapter extends RecyclerView.Adapter<MyProfileAdapter.MyVi
                 case "SMOKING":
                     myViewHolder.image.setImageResource(R.drawable.ic_smoking);
                     break;
+                case "DRINKING":
+                    myViewHolder.image.setImageResource(R.drawable.ic_wine);
+                    break;
+                case "HEIGHT":
+                    myViewHolder.image.setImageResource(R.drawable.ic_height);
+                    break;
+                case "POST CODE":
+                    myViewHolder.image.setImageResource(R.drawable.ic_coors);
+                    break;
                 default:
                     myViewHolder.image.setImageResource(R.drawable.ic_greatthan);
             }

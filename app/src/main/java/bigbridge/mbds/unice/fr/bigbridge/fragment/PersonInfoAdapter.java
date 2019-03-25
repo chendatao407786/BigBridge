@@ -93,6 +93,10 @@ public class PersonInfoAdapter extends RecyclerView.Adapter<PersonInfoAdapter.My
                             modifierFragment = new ModifySingleChoiceFragment();
                             modifierFragment.setArguments(makeBundle("Yes","No"));
                             break;
+                        case "DRINKING":
+                            modifierFragment = new ModifySingleChoiceFragment();
+                            modifierFragment.setArguments(makeBundle("Yes","No"));
+                            break;
                         case "SPORT":
                             modifierFragment = new ModifySingleChoiceFragment();
                             modifierFragment.setArguments(makeBundle("Yes","No"));
